@@ -33,7 +33,7 @@
   <thead>
     <tr>
       <th scope="col">Turno</th>
-      <th scope="col">Paciente</th> 
+      <th scope="col">Paciente </th> 
       
       
     </tr>
@@ -43,7 +43,7 @@
         {% for turno in turnos %}
           <tr>
           <th scope="row">{{ turno }}</th>
-          <td>{{ turno.paciente }}</td> 
+          <td>{{ turno.paciente }} <a href="{% url 'pacientes:paciente_medico' turno.paciente.pk %}" class="btn btn-primary" style="background-color: #4fd1c3; height: 35px; width: 55px; font-size: 18px; text-align: center; padding: 0; margin-left: 25px;">Ver</a></td> 
           
           
           </tr>

@@ -59,14 +59,14 @@ class Pedido(models.Model):
             ('Billetera virtual', 'Billetera virtual'),
             ('Efectivo', 'Efectivo'),
             )
-  paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.SET_NULL)
+  paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.CASCADE)
   fecha_creación =  models.DateTimeField(auto_now_add=True, null=True)
   precio_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=20)
   estado = models.CharField(max_length=20, null=True, choices=ESTADO)
   producto = models.ForeignKey(Producto, null=True, on_delete=models.CASCADE)
   cantidad = models.PositiveIntegerField(default=1)
   pago = models.CharField(max_length=20, null=True, choices=PAGO)
-  vendedor = models.ForeignKey('pedidos.Vendedor', null=True, on_delete=models.SET_NULL)
+  vendedor = models.ForeignKey('pedidos.Vendedor', null=True, on_delete=models.CASCADE)
 
   # class Meta:
   #   unique_together = ('pedido', 'producto')

@@ -3,7 +3,7 @@ from django.forms import ModelForm, DateTimeField, CharField, Textarea
 from django import forms
 from .models import Paciente
 from turnos.models import Turno
-from bootstrap_datepicker_plus import DateTimePickerInput
+
 
 class PacienteForm(ModelForm):
 
@@ -31,4 +31,4 @@ class TurnoForm(ModelForm):
     #     widget=DateTimePickerInput(format='%m/%d/%Y')))
 
     # widgets = {'turno': DateTimePickerInput(format='%m/%d/%Y')}
-    turno = forms.DateTimeField(input_formats=['%d/%m/%y %H:%M'])
+    # turno = forms.DateTimeField(input_formats=['%d/%m/%y %H:%M'])

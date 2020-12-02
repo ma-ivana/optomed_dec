@@ -11,8 +11,11 @@
 <div class="nuevo_item_form">
   <ul class="nuevo_item">
     <li >Paciente: {{ form.paciente }}</li>
-    <li>Turno-día: <input type="date" value='{{ form.turno_dia }}'></li>
-    <li>Turno-hora: <input type="time" value='{{ form.turno_hora }}'></li>
+    <li>Turno-día: <input type="date" {{ form.turno_dia }}></li>
+    <li>Turno-hora: <input type="time" {{ form.turno_hora }}></li> 
+
+  {% comment %} <li>Turno-día: {{ form.turno_dia }}
+    <li>Turno-hora: {{ form.turno_hora }} {% endcomment %}
   
   <li>Estado del turno: {{ form.estado_turno }}</li>
   <li>Médico: {{ form.médico }}</li>

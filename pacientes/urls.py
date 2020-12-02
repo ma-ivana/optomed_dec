@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from turnos import views
 
 app_name = 'pacientes'
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     # path("nuevo_turno/", views.nuevoTurno, name="nuevo_turno"),
     path("actualizar_paciente/<int:pk>", views.actualizarPaciente, name="actualizar_paciente"),
     path("borrar_paciente/<int:pk>", views.borrarPaciente, name="borrar_paciente"),
+    path("paciente_medico/<int:pk>", views.paciente_medico, name="paciente_medico"),
     # path("actualizar_turno/<int:pk>", views.actualizarTurno, name="actualizar_turno"),
     # path("borrar_turno/<int:pk>", views.borrarTurno, name="borrar_turno"),
 ]

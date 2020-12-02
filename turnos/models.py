@@ -8,14 +8,14 @@ class Turno(models.Model):
             ('Cumplido', 'Cumplido'),
             ('No cumplido', 'No cumplido')
             )
-  paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.SET_NULL)
+  paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.CASCADE)
   turno_dia = models.DateField()
   turno_hora = models.TimeField()
   estado_turno = models.CharField(max_length=20, null=True, choices=ESTADO)
-  médico = models.ForeignKey('turnos.Medico', null=True, on_delete=models.SET_NULL)
+  médico = models.ForeignKey('turnos.Medico', null=True, on_delete=models.CASCADE)
 
   def __str__(self):
-    return f'Turno {self.turno_dia.date}-{self.turno_dia.month}-{self.turno_dia.year} a las {self.turno_hora} h'
+    return f'Turno {self.turno_dia.day}-{self.turno_dia.month}-{self.turno_dia.year} a las {self.turno_hora} h'
 
 class Medico(models.Model):
   nombre = models.CharField(max_length=200, null=True)

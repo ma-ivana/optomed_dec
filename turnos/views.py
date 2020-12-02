@@ -53,6 +53,7 @@ def medicos(request):
 def medico(request, medico_id):
   medico = Medico.objects.get(pk=medico_id)
   turnos = Turno.objects.filter(médico__pk=medico_id)
-  
-  context_medico = {'turnos': turnos, 'medicos': medicos, 'pacientes': pacientes, 'medico': medico}
+  pacientes = Paciente.objects.all()  
+  context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes}
   return render(request, "turnos/medico.html", context_medico)
+

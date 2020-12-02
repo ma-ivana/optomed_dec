@@ -60,3 +60,19 @@ def borrarPaciente(request, pk):
     return redirect('pacientes:index')
   context = {'item': paciente}
   return render(request, 'pacientes/borrar.html', context)
+
+def paciente_medico(request, pk): 
+  paciente = Paciente.objects.get(id=pk)
+  turnos_paciente = paciente.turno_set.all().count()
+  
+  form = PacienteForm(instance=paciente)
+    
+  if request.method == 'POST':
+    form = PacienteForm(request.POST, instance=paciente)
+    if form.is_valid():
+      form.save()
+      # context_turno = {'pk': paciente.pk}
+      return redirect('pacientes:paciente_medico', pk)
+  
+  context_paciente = { 'paciente': paciente, 'turnos_paciente': turnos_paciente, 'form': form }
+  return render(request, "pacientes/paciente_medico.html", context_paciente)
