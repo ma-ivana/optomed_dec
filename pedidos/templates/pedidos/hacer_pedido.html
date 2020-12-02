@@ -1,0 +1,12 @@
+{% extends 'pedidos/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="btn btn-sm btn-info" type="submit" name="Enviar" value="Enviar">
+</form>
+
+{% endblock %}

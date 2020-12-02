@@ -1,0 +1,41 @@
+{% extends "pedidos/layout.html" %}
+
+{% block body %}
+  
+  <h1> Pedido N.º {{ unPedido.id }} </h1>
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Precio unit.</th>
+      <th scope="col">Total art.</th>
+      <th scope="col">Fecha de creación</th>
+      <th scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+        
+        {% for item in pedido_seleccionado %}
+          
+          <tr>
+          <th scope="row">{{ item.cantidad }}</th>
+          <td>{{ item.producto }}</td>
+          <td>{{ item.producto.precio }}</td>
+          <td>{% widthratio item.cantidad 1 item.producto.precio %}</td>
+          <td>{{ item.pedido.fecha_creación }}</td>
+          <td>{{ item.pedido.estado }}</td>
+          </tr>          
+        {% endfor %}
+      <tr>
+        <th scope="row">--</th>
+        <td> --- </td>
+        <td> Total $</td>
+        <td>{{ total }}</td>
+        <td>--</td>
+        <td>--</td>
+  </tbody>
+</table>
+
+{% endblock %}

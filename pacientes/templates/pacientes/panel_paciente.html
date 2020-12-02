@@ -1,0 +1,70 @@
+{% extends 'pacientes/layout.html' %}
+
+{% block body %}
+<h1 style="margin-bottom: 35px;"> Paciente {{ paciente }} </h1>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body" style="height: 230px;">
+			
+			<a class="btn btn-sm btn-info" style="margin-bottom: 25px;" href="">Actualizar paciente</a>
+			<a class="btn btn-sm btn-danger" href="">Eliminar paciente</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body" style="height: 230px;">
+			<h5>Información de contacto</h5>
+			<hr>
+			<p>Email: {{ paciente.email }}</p>
+			<p>Teléfono: {{ paciente.teléfono }}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body" style="height: 230px;">
+			<h5>Total de pedidos</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px"> 
+        {% with total=paciente.pedido_set.all.count %}
+          {{ total }}
+        {% endwith %}
+      </h1>
+		</div>
+	</div>
+</div>
+
+
+
+<br>
+
+<div class="contenedor_panel">
+  
+<div class="col md-5">
+    <div class="card card-body">
+      <a class="btn btn-primary btn-sm btn-block" href="{% url 'pedidos:hacer_pedido' paciente.id %}">Nuevo pedido</a>
+      <table class="table table-sm">
+        <tr>
+          <th>Pedido</th>
+          <th>Fecha pedido</th>
+          <th>Estado</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+        
+        {% for cada_pedido in pedido %}
+          <tr>
+          <td> {{ cada_pedido.pk }} </td>
+          <td> {{ cada_pedido.fecha_creación.date }}</td>
+          <td> {{ cada_pedido.estado }} </td>
+          <td> <a href="">Actualizar</a></td>
+          <td> <a href="">Eliminar</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

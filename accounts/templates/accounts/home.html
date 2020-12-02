@@ -1,0 +1,19 @@
+{% load static %}
+
+  {% block body %}
+  <link rel="stylesheet" href="{% static 'pedidos/styles.css' %}">
+    <div class="home_title">
+    <h1> OPTOMED </h1>
+    <h2> Clínica y Tienda de Optometría </h2>
+    </div>
+
+<p style="margin: 0 0 65px 15px; font-size: 23px;">Seleccione su rol para continuar:</p>
+
+    <div class="container_home">
+        <a class="rol" href="{% url 'accounts:login' %}">Secretaría</a>
+        <div class="rol">Prof. médico</div>
+        <div class="rol">Ventas</div>
+        <div class="rol">Taller</div>
+        <div class="rol">Gerencia</div>
+    </div>
+  {% endblock %}

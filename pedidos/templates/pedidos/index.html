@@ -1,0 +1,12 @@
+{% extends "pedidos/layout.html" %}
+
+{% block body %}
+  <h1>Tienda de OptoMed</h1>
+
+<ul>
+  <li><a href="{% url 'pedidos:pedidos' %}">Pedidos</a></li>
+  <li><a href="{% url 'pedidos:productos' %}">Productos</a></li>
+  <li><a href="{% url 'pedidos:tags' %}">Tags</a></li>
+</ul>
+
+{% endblock %}

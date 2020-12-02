@@ -1,0 +1,42 @@
+{% extends "pacientes/layout.html" %}
+
+{% block body %}
+  <h1> Pacientes </h1>
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">N.º</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Email</th>
+      <th scope="col">Pedidos</th>
+      <th scope="col">Turnos</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+        {% for paciente in pacientes %}
+          <tr>
+          <th scope="row">{{ paciente.id}}</th>
+					<td>{{ paciente.nombre }}</td>
+          <td>{{ paciente.teléfono }}</td>
+          <td>{{ paciente.email }}</td>
+          <td> 
+              {% with total=paciente.pedido_set.all.count %}
+                {{ total }}
+              {% endwith %}
+          </td>
+					<td>'falta'</td>
+          </tr>
+        {% endfor %}
+       
+  </tbody>
+</table>
+
+	<br>
+
+
+
+
+{% endblock %}

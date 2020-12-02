@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'pedidos/styles.css' %}">
+  <title>Estado</title>
+</head>
+<body>
+  <div class="contenedor_panel">
+    <div class="col md-3">    
+      <div class="card card-body">      
+        <table class="table table-sm">
+          <tr>
+          <th class="header">Total de pedidos</th>
+          </tr>
+          <tr>          
+          <td class="row_body">{{ total_pedidos }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+      <div class="col md-3">    
+      <div class="card card-body">      
+        <table class="table table-sm">
+          <tr>
+          <th class="header">Pedidos finalizados</th>
+          </tr>
+          <tr>          
+          <td class="row_body">{{ finalizados }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+      <div class="col md-3">    
+      <div class="card card-body">      
+        <table class="table table-sm">
+          <tr>
+          <th class="header">Pedidos pendientes</th>
+          </tr>
+          <tr>          
+          <td class="row_body">{{ pendientes }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div
+</body>
+</html>

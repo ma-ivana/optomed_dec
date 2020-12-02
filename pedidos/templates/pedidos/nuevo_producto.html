@@ -1,0 +1,16 @@
+{% extends 'pedidos/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="nuevo_producto_form">
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div style="margin-left: 15px;">
+  <input class="btn btn-sm btn-info" type="submit" name="Enviar" value="Enviar">
+  </div>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'pedidos/layout.html' %}
+{% load static %}
+
+{% block body %}
+  <h1>Panel</h1>
+
+{% include 'pedidos/estado.html' %}
+  <div class="contenedor_panel">
+  <div class="col md-4">
+    <h4>PACIENTES:</h4>
+    <hr>
+    <div class="card card-body">
+      <a class="btn btn-primary btn-sm btn-block" href="">Nuevo paciente</a>
+      <table class="table table-sm">
+        <tr class="header_inicio">
+          <th>Paciente</th>
+          <th>Pedidos</th>
+          <th>Turnos</th>
+        </tr>
+        <tr>
+         
+          {% for paciente in pacientes %}
+            <td>
+            {{ paciente.nombre }}
+            </td>
+            <td> 
+              {% with total=paciente.pedido_set.all.count %}
+                {{ total }}
+              {% endwith %}
+            </td>
+            <td>
+              falta
+            </td>
+          </tr>
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+  </div>
+
+<div class="col md-8">
+    <h4>ÚLTIMOS 5 PEDIDOS:</h4>
+    <hr>
+    <div class="card card-body">
+      
+      <table class="table table-sm">
+        <tr class="header_inicio">
+          <th>Producto</th>
+          <th>Fecha pedido</th>
+          <th>Estado</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+        {% for pedido in ultimos_cinco %}
+          <tr>
+            <td>{{ pedido.producto }}</td>
+            <td>{{ pedido.fecha_creación.date }}</td>
+            <td>{{ pedido.estado }}</td>
+            <td> <a href="">Actualizar</a></td>
+            <td> <a href="">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock body %}
