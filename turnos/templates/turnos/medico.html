@@ -1,0 +1,55 @@
+{% extends "turnos/layout.html" %}
+{% load static %}
+
+{% block body %}
+  
+  <h1> Profesional méd. {{ medico.nombre }} </h1>
+  <h3> Especialidad: {{ medico.especialidad }}</h3>
+  
+  <a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin-left: 15px; margin-bottom: 15px;" href="#" onclick="getValue(); return false;">Filtrar pacientes</a>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="turnos_checkbox">
+    <input type="checkbox" class="checks" id="día" name="día" value="día">Por día
+    <input type="checkbox" class="checks" id="mes" name="mes" value="año">Por mes
+    <input type="checkbox" class="checks" id="año" name="año" value="año">Por año
+    </div>
+  </form>
+
+  <script>
+    let getValue =() => {
+      let checks = document.getElementsbyClassName('checks');
+      let choice = '';
+
+      for (i =0; i<3; i++) {
+        if (checks[i].checked === true) {
+          if 
+          }
+      }
+    }
+  </script>
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Turno</th>
+      <th scope="col">Paciente</th> 
+      
+      
+    </tr>
+  </thead>
+  <tbody>
+    
+        {% for turno in turnos %}
+          <tr>
+          <th scope="row">{{ turno }}</th>
+          <td>{{ turno.paciente }}</td> 
+          
+          
+          </tr>
+        {% endfor %}
+       
+  </tbody>
+</table> 
+
+{% endblock %}

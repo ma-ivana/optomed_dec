@@ -1,0 +1,25 @@
+{% extends 'pacientes/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<h1> Nuevo paciente </h1>
+<div class="form_container">
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="nuevo_item_form">
+  <ul class="nuevo_item">
+    <li>Nombre: {{ form.nombre }}</li>
+    <li>Teléfono: {{ form.teléfono }}</li>  
+    <li>Email: {{ form.email }}</li>
+    <li>Historial: {{form.historial}}</li>
+  </ul>
+  
+ 
+
+  <input class="btn btn-sm btn-info" style="width: 100px; margin-top: 35px;" type="submit" name="Enviar" value="Enviar">
+</div>
+</form>
+
+</div>
+{% endblock %}

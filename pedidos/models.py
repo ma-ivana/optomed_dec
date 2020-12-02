@@ -53,12 +53,20 @@ class Pedido(models.Model):
             ('Enviar a taller', 'Enviar a taller'),
             ('Finalizado', 'Finalizado')
             )
+  PAGO = (
+            ('Tarjeta de crédito', 'Tarjeta de crédito'),
+            ('Tarjeta de débito', 'Tarjeta de débito'),
+            ('Billetera virtual', 'Billetera virtual'),
+            ('Efectivo', 'Efectivo'),
+            )
   paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.SET_NULL)
   fecha_creación =  models.DateTimeField(auto_now_add=True, null=True)
   precio_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=20)
   estado = models.CharField(max_length=20, null=True, choices=ESTADO)
   producto = models.ForeignKey(Producto, null=True, on_delete=models.CASCADE)
   cantidad = models.PositiveIntegerField(default=1)
+  pago = models.CharField(max_length=20, null=True, choices=PAGO)
+  vendedor = models.ForeignKey('pedidos.Vendedor', null=True, on_delete=models.SET_NULL)
 
   # class Meta:
   #   unique_together = ('pedido', 'producto')
@@ -85,3 +93,10 @@ class Pedido(models.Model):
 
   # def __str__(self):
   #   return f'{self.producto__nombre}
+
+class Vendedor(models.Model):
+  nombre = models.CharField(max_length=200, null=True)
+  fecha_creación = models.DateTimeField(auto_now_add=True, null=True)
+
+  def __str__(self):
+    return self.nombre

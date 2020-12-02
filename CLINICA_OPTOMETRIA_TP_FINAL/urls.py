@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pedidos import views as inicio_view
-from pacientes import views as paciente_view
 from accounts import views as account_view
 
 urlpatterns = [
@@ -27,6 +26,6 @@ urlpatterns = [
     path('inicio/', inicio_view.inicio, name="inicio"),
     path('productos/', inicio_view.productos, name="productos"),
     path('accounts/', include("accounts.urls")),
-    path('panel_paciente', paciente_view.panel_paciente, name="panel_paciente"),
     path('home_new', account_view.home, name="home_new"),
+    path('turnos/', include('turnos.urls')),
 ]

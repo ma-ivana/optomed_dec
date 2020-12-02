@@ -53,11 +53,6 @@ tr {
   background-color: rgb(32, 105, 105);
   }
 
-.nuevo_producto_form {
-  display: flex;
-  flex-wrap: wrap;
-  }
-
 .container_home {
   display: flex;
   justify-content: space-evenly;
@@ -78,5 +73,13 @@ tr {
   font-size: 32px;
   text-align: center;
   padding-top:15px;
-  color: white;
+  color: whited;
     }
+
+.nuevo_item_form {
+  margin: 25px 15px;
+  }
+
+.nuevo_item {
+  color: red;
+}

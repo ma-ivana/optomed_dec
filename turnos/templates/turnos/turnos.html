@@ -1,0 +1,38 @@
+{% extends "turnos/layout.html" %}
+
+{% block body %}
+  
+  <h1> Turnos </h1>
+
+<a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin-left: 15px; margin-bottom: 15px;" href="{% url 'turnos:nuevo_turno' %}">Nuevo turno</a>
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Turno</th>
+      <th scope="col">Paciente</th>
+      {% comment %} <th scope="col">Total</th> {% endcomment %}
+      <th scope="col">Médico</th>
+      <th scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+        {% for turno in turnos %}
+          <tr>
+          <th scope="row">{{ turno.turno }}
+        <a href="{% url 'turnos:actualizar_turno' turno.pk %}" class="btn btn-primary" style="background-color: #4fd1c3; height: 35px; width: 55px; font-size: 18px; text-align: center; padding: 0; margin-left: 25px;">Act.</a> 
+<a href="{% url 'turnos:borrar_turno' turno.pk %}" class="btn btn-primary" style="background-color: #f788b6; height: 35px; width: 55px; font-size: 18px; text-align: center; padding: 0; margin-left: 15px;">Borr.</a>
+</td>
+</th>
+          <td>{{ turno.paciente }}</td>
+          {% comment %} <td>{{ total }}</td> {% endcomment %}
+          <td>{{ turno.médico }}</td>
+          <td>{{ turno.estado_turno }}</td>
+          </tr>
+        {% endfor %}
+       
+  </tbody>
+</table>
+
+{% endblock %}

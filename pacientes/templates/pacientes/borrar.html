@@ -1,0 +1,15 @@
+{% extends "pacientes/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+  <p>¿Confirma que desea borrar "{{ item }}"?</p>
+
+  <form method="POST" action="{% url 'pacientes:borrar_paciente' item.id %}">
+    {% csrf_token %}
+    <a href="{% url 'pacientes:index' %}">Cancelar</a>
+    <input type="submit" name="Confirmar" value="Confirmar">
+  </form>
+
+
+{% endblock %}

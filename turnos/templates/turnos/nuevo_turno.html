@@ -1,0 +1,30 @@
+{% extends 'turnos/layout.html' %}
+{% load static %}
+
+
+{% block body %}
+<h1>Nuevo turno</h1>
+<div class="form_container">
+
+<form action="" method="POST">
+  {% csrf_token %}
+<div class="nuevo_item_form">
+  <ul class="nuevo_item">
+    <li >Paciente: {{ form.paciente }}</li>
+    <li>Turno-día: <input type="date" value='{{ form.turno_dia }}'></li>
+    <li>Turno-hora: <input type="time" value='{{ form.turno_hora }}'></li>
+  
+  <li>Estado del turno: {{ form.estado_turno }}</li>
+  <li>Médico: {{ form.médico }}</li>
+  </ul>
+  
+ 
+
+  <input class="btn btn-sm btn-info" style="width: 100px; margin-top: 35px;" type="submit" name="Enviar" value="Enviar">
+  
+</div>
+</form>
+
+</div>
+
+{% endblock %}

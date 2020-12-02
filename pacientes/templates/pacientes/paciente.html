@@ -69,8 +69,8 @@
           <td> {{ cada_pedido.pk }} </td>
           <td> {{ cada_pedido.fecha_creación.date }}</td>
           <td> {{ cada_pedido.estado }} </td>
-          <td> <a href="">Actualizar</a></td>
-          <td> <a href="">Eliminar</a></td>
+          <td> <a href="{% url 'pedidos:actualizar_pedido' cada_pedido.pk %}">Actualizar</a></td>
+          <td> <a href="{% url 'pedidos:borrar_pedido' cada_pedido.pk %}">Eliminar</a></td>
           </tr>
         {% endfor %}
       </table>

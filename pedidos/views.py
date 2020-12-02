@@ -11,6 +11,7 @@ pedidos = Pedido.objects.all()
 productos = Producto.objects.all()
 tags = Tag.objects.all()
 pacientes = Paciente.objects.all()
+vendedores = Vendedor.objects.all()
 pedidos_productos = Pedido.objects.all()
 total_pedidos = pedidos.count()
 finalizados = pedidos.filter(estado="Finalizado").count()
@@ -84,14 +85,14 @@ def estado(request):
 #   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
 
 def hacerPedido(request, pk):
-  paciente = Paciente.objects.get(id=pk)
+  paciente = Paciente.objects.get(pk=pk)
   form = PedidoForm(initial={'paciente': paciente})
   if request.method == 'POST':
     form = PedidoForm(request.POST)
     if form.is_valid():
       form.save()
-      return redirect(inicio)
-  context_pedido = {'form': form, 'id': id }
+      return redirect('pacientes:panel_paciente', pk=pk)
+  context_pedido = {'form': form, 'pk': pk }
   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
 
 def nuevoProducto(request):
@@ -106,3 +107,36 @@ def nuevoProducto(request):
 
   context_pedido = {'form': form}
   return render(request, 'pedidos/nuevo_producto.html', context_pedido)
+
+def vendedores(request):
+  return render(request, "pedidos/vendedores.html", context)
+
+def vendedor(request, pk):
+  vendedor = Vendedor.objects.get(pk=pk)  
+  # pedido = paciente.pedido_set.all()
+  pedidos_vendedor = vendedor.pedido_set.all().count()
+  context_vendedor = { 'paciente': paciente, 'vendedor': vendedor, 'pedidos_vendedor': pedidos_vendedor }
+  return render(request, "pedidos/vendedor.html", context_vendedor)
+
+def actualizarPedido(request, pk):
+  pedido = Pedido.objects.get(id=pk)
+  form = PedidoForm(instance=pedido)
+  paciente_id = pedido.paciente.pk
+  
+  if request.method == 'POST':
+    form = PedidoForm(request.POST, instance=pedido)
+    if form.is_valid():
+      form.save()
+      # context_paciente = {'paciente_id': paciente_id}
+      return redirect('pacientes:panel_paciente', pk=paciente_id)
+  context= {'form': form}
+  return render(request, 'pedidos/hacer_pedido.html', context)
+
+def borrarPedido(request, pk):
+  pedido = Pedido.objects.get(id=pk)
+  paciente_id = pedido.paciente.pk
+  if request.method == "POST":
+    pedido.delete()
+    return redirect('pacientes:panel_paciente', pk=paciente_id)
+  context = {'item': pedido}
+  return render(request, 'pedidos/borrar.html', context)
