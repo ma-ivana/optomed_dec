@@ -10,9 +10,9 @@ Uso del código:
 - Iniciar sesión según tipo de usuario:
 
 
-Para visualizar el usuario de personal medico, ENTRAR CON PERFIL DE PROFESIONAL MEDICO:
--profemed
--pass: profmedtest1234
+- Para visualizar el usuario de personal medico, ENTRAR CON PERFIL DE PROFESIONAL MEDICO:  
+--profemed
+--pass: profmedtest1234
 e introducir la URL :  turnos/medico/1
 ENTRAR CON PERFIL DE GERENCIA 
 -gerencia
