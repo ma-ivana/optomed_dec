@@ -8,12 +8,26 @@ __Integrantes:__
 
 __Uso del código:__
 - Iniciar sesión según tipo de usuario:
+- Para PERFIL SECRETARÍA:  
+-- usuario: secretaria 
+-- pass: secretest1234
 
-
-- Para visualizar el usuario de personal medico, ENTRAR CON PERFIL DE PROFESIONAL MEDICO:  
---profemed
---pass: profmedtest1234
+- Para PERFIL DE PROFESIONAL MEDICO:  
+-- usuario: profemed
+-- pass: profmedtest1234
 e introducir la URL :  turnos/medico/1
-ENTRAR CON PERFIL DE GERENCIA 
--gerencia
-Pass: gerenciatest1234
+
+- Para PERFIL DE GERENCIA 
+-- usuario: gerencia  
+-- pass: gerenciatest1234  
+
+- Para PERFIL DE TALLER
+-- usuario: taller  
+-- pass: tallertest1234  
+
+- Para PERFIL DE VENTAS  
+-- usuario: ventas  
+-- pass: ventastest1234  
+
+__Link al video en YouTube:__
+https://youtu.be/0bZPZb08C-U
