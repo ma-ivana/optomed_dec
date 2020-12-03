@@ -17,12 +17,12 @@ pedidos = Pedido.objects.all()
 context = {'pacientes': pacientes, 'pedidos': pedidos}
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria'])
+@allowed_users(allowed_roles=['admin', 'secretaria','gerencia'])
 def index(request):  
   return render(request, "pacientes/index.html", context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed'])
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed','gerencia'])
 def paciente(request, paciente_id): 
   paciente = Paciente.objects.get(id=paciente_id)
   pedido = paciente.pedido_set.all()
@@ -42,7 +42,7 @@ def panel_paciente(request, pk):
   return render(request, "pacientes/panel_paciente.html", context_paciente)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria'])
+@allowed_users(allowed_roles=['admin', 'secretaria','gerencia'])
 def nuevoPaciente(request):
   form = PacienteForm()
   if request.method == "POST":
@@ -54,7 +54,7 @@ def nuevoPaciente(request):
   return render(request, "pacientes/nuevo_paciente.html", context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria'])
+@allowed_users(allowed_roles=['admin', 'secretaria','gerencia'])
 def actualizarPaciente(request, pk):
   paciente = Paciente.objects.get(id=pk)
   form = PacienteForm(instance=paciente)
@@ -63,13 +63,12 @@ def actualizarPaciente(request, pk):
     form = PacienteForm(request.POST, instance=paciente)
     if form.is_valid():
       form.save()
-      # context_paciente = {'paciente_id': paciente_id}
       return redirect('pacientes:index')
   context= {'form': form}
   return render(request, 'pacientes/nuevo_paciente.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria'])
+@allowed_users(allowed_roles=['admin', 'secretaria','gerencia'])
 def borrarPaciente(request, pk):
   paciente = Paciente.objects.get(id=pk)
   if request.method == "POST":
@@ -79,7 +78,7 @@ def borrarPaciente(request, pk):
   return render(request, 'pacientes/borrar.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed'])
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed','gerencia'])
 def paciente_medico(request, pk): 
   paciente = Paciente.objects.get(id=pk)
   turnos_paciente = paciente.turno_set.all().count()
@@ -90,7 +89,6 @@ def paciente_medico(request, pk):
     form = PacienteForm(request.POST, instance=paciente)
     if form.is_valid():
       form.save()
-      # context_turno = {'pk': paciente.pk}
       return redirect('pacientes:paciente_medico', pk)
   
   context_paciente = { 'paciente': paciente, 'turnos_paciente': turnos_paciente, 'form': form }

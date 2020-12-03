@@ -30,17 +30,17 @@ context = {'pedidos': pedidos, 'productos': productos, 'tags': tags, 'pacientes'
 
 # Create your views here.
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def index(request):
   return render(request, "pedidos/index.html", context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def pedidos(request):
   return render(request, "pedidos/pedidos.html", context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def productos(request):
   return render(request, "pedidos/productos.html", context)
 
@@ -48,7 +48,7 @@ def tags(request):
   return render(request, "pedidos/tags.html", context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def pedido_completo(request, pedido_id):
   unPedido = Pedido.objects.get(pk=pedido_id)
   pedido_seleccionado = Pedido.objects.filter(id=unPedido.pk)
@@ -63,13 +63,13 @@ def pedido_completo(request, pedido_id):
   return render(request, "pedidos/pedido_completo.html", contexto_pedido)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def crearPedido(request):
   context_crearPedido = {}
   return render(request, 'pedidos/formulario_pedido.html', context_crearPedido)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def nuevoProducto(request):
   form = ProductoForm()
   if request.method == 'POST':
@@ -85,7 +85,7 @@ def nuevoProducto(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def inicio(request):
   pedidos=Pedido.objects.all()
   filtro_pedidos = FiltroPedidos(request.GET, queryset=pedidos)
@@ -97,7 +97,7 @@ def estado(request):
   return render(request, 'pedidos/estado.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def hacerPedido(request, pk):
   paciente = Paciente.objects.get(pk=pk)
   form = PedidoForm(initial={'paciente': paciente})
@@ -111,7 +111,7 @@ def hacerPedido(request, pk):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def vendedores(request):
   return render(request, "pedidos/vendedores.html", context)
 
@@ -125,7 +125,7 @@ def vendedor(request, pk):
   return render(request, "pedidos/vendedor.html", context_vendedor)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def actualizarPedido(request, pk):
   pedido = Pedido.objects.get(id=pk)
   form = PedidoForm(instance=pedido)
@@ -141,7 +141,7 @@ def actualizarPedido(request, pk):
   return render(request, 'pedidos/hacer_pedido.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas'])
+@allowed_users(allowed_roles=['admin', 'ventas','gerencia'])
 def borrarPedido(request, pk):
   pedido = Pedido.objects.get(id=pk)
   paciente_id = pedido.paciente.pk
@@ -152,7 +152,7 @@ def borrarPedido(request, pk):
   return render(request, 'pedidos/borrar.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas','taller'])
+@allowed_users(allowed_roles=['admin', 'ventas','taller','gerencia'])
 def actualizarPedidoTaller(request, pk):
   pedido = Pedido.objects.get(id=pk)
   form = PedidoFormTaller(instance=pedido)
@@ -166,7 +166,7 @@ def actualizarPedidoTaller(request, pk):
   return render(request, 'pedidos/pedido_taller_form.html', context_taller)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ventas','taller'])
+@allowed_users(allowed_roles=['admin', 'ventas','taller','gerencia'])
 def pedidosTaller(request):
   return render(request, "pedidos/pedidos_taller.html", context)
 
