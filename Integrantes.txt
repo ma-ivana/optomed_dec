@@ -1,0 +1,9 @@
+POLO TIC MISIONES - CURSO FULLSTACK WEB CON PYTHON Y JAVASCRIPT
+
+TRABAJO FINAL - CLÍNICA DE OPTOMETRÍA
+
+Integrantes:
+
+Jesus Jaime Poco Salvador (DNI: 73690524) - jesus.poco@unmsm.edu.pe
+
+María Ivana Croxcatto (DNI: 22942829) - croxcatto.maria.ivana@gmail.com
