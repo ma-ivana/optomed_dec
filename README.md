@@ -6,7 +6,7 @@ __Integrantes:__
 - María Ivana Croxcatto (DNI: 22942829) - croxcatto.maria.ivana@gmail.com
 
 
-Uso del código:
+__Uso del código:__
 - Iniciar sesión según tipo de usuario:
 
 
