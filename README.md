@@ -7,21 +7,21 @@ __Integrantes:__
 
 
 __Uso del código:__
-- Iniciar sesión según tipo de usuario:
+- Iniciar sesión según tipo de usuario:  
 - Para PERFIL SECRETARÍA:  
--- usuario: secretaria 
--- pass: secretest1234
+-- usuario: secretaria  
+-- pass: secretest1234  
 
 - Para PERFIL DE PROFESIONAL MEDICO:  
--- usuario: profemed
--- pass: profmedtest1234
-e introducir la URL :  turnos/medico/1
+-- usuario: profemed  
+-- pass: profmedtest1234  
+e introducir la URL :  turnos/medico/1  
 
-- Para PERFIL DE GERENCIA 
+- Para PERFIL DE GERENCIA  
 -- usuario: gerencia  
 -- pass: gerenciatest1234  
 
-- Para PERFIL DE TALLER
+- Para PERFIL DE TALLER  
 -- usuario: taller  
 -- pass: tallertest1234  
 
@@ -29,5 +29,5 @@ e introducir la URL :  turnos/medico/1
 -- usuario: ventas  
 -- pass: ventastest1234  
 
-__Link al video en YouTube:__
+__Link al video en YouTube:__  
 https://youtu.be/0bZPZb08C-U
