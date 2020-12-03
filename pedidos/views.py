@@ -9,6 +9,11 @@ from .forms import ProductoForm, PedidoForm, PedidoFormTaller
 from .filters import FiltroPedidos
 from turnos.filters import FiltroMedico
 
+from accounts.decorators import unauthenticated_user
+from accounts.decorators import allowed_users
+from accounts.decorators import admin_only
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 pedidos = Pedido.objects.all()
 productos = Producto.objects.all()
@@ -24,18 +29,26 @@ ultimos_cinco = Pedido.objects.all().order_by('-id')[:5]
 context = {'pedidos': pedidos, 'productos': productos, 'tags': tags, 'pacientes': pacientes, 'total_pedidos': total_pedidos, 'finalizados': finalizados, 'pendientes': pendientes, 'ultimos_cinco': ultimos_cinco}
 
 # Create your views here.
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def index(request):
   return render(request, "pedidos/index.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def pedidos(request):
   return render(request, "pedidos/pedidos.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def productos(request):
   return render(request, "pedidos/productos.html", context)
 
 def tags(request):
   return render(request, "pedidos/tags.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def pedido_completo(request, pedido_id):
   unPedido = Pedido.objects.get(pk=pedido_id)
   pedido_seleccionado = Pedido.objects.filter(id=unPedido.pk)
@@ -49,9 +62,14 @@ def pedido_completo(request, pedido_id):
   
   return render(request, "pedidos/pedido_completo.html", contexto_pedido)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def crearPedido(request):
   context_crearPedido = {}
   return render(request, 'pedidos/formulario_pedido.html', context_crearPedido)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def nuevoProducto(request):
   form = ProductoForm()
   if request.method == 'POST':
@@ -65,6 +83,9 @@ def nuevoProducto(request):
   context_pedido = {'form': form}
   return render(request, 'pedidos/nuevo_producto.html', context_pedido)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def inicio(request):
   pedidos=Pedido.objects.all()
   filtro_pedidos = FiltroPedidos(request.GET, queryset=pedidos)
@@ -75,34 +96,8 @@ def inicio(request):
 def estado(request):
   return render(request, 'pedidos/estado.html', context)
 
-# def hacerPedido(request):
-#   # form = PedidoProductoForm()
-#   # if request.method == 'POST':
-#   #   # print('Printing POST:', request.POST)
-#   #   form = PedidoProductoForm(request.POST)
-#   #   if form.is_valid():
-#   #     form.save()
-#   #     # form.save_m2m()
-#   #     return redirect(inicio)
-
-#   # context_pedido = {'form': form}
-#   formset = PedidoProductoFormSet()
-#   if request.method == "POST":
-#     formset = PedidoProductoFormSet(request.POST)
-#     if formset.is_valid():
-#       formset.save()
-#       return redirect(inicio)
-#   context_pedido = {'form': formset }
-#   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
-
-
-# def hacerPedido(request, pk):
-#   paciente = Paciente.objects.get(id=pk)
-#   PedidoProductoFormset = modelformset_factory(PedidoProducto, fields=('producto', 'cantidad'))
-#   formset = PedidoProductoFormset(queryset=PedidoProducto.objects.all())
-#   context_pedido = {'form': formset }
-#   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def hacerPedido(request, pk):
   paciente = Paciente.objects.get(pk=pk)
   form = PedidoForm(initial={'paciente': paciente})
@@ -115,10 +110,13 @@ def hacerPedido(request, pk):
   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
 
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def vendedores(request):
   return render(request, "pedidos/vendedores.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def vendedor(request, pk):
   vendedor = Vendedor.objects.get(pk=pk)  
   # pedido = paciente.pedido_set.all()
@@ -126,6 +124,8 @@ def vendedor(request, pk):
   context_vendedor = { 'paciente': paciente, 'vendedor': vendedor, 'pedidos_vendedor': pedidos_vendedor }
   return render(request, "pedidos/vendedor.html", context_vendedor)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def actualizarPedido(request, pk):
   pedido = Pedido.objects.get(id=pk)
   form = PedidoForm(instance=pedido)
@@ -140,6 +140,8 @@ def actualizarPedido(request, pk):
   context= {'form': form}
   return render(request, 'pedidos/hacer_pedido.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas'])
 def borrarPedido(request, pk):
   pedido = Pedido.objects.get(id=pk)
   paciente_id = pedido.paciente.pk
@@ -149,6 +151,8 @@ def borrarPedido(request, pk):
   context = {'item': pedido}
   return render(request, 'pedidos/borrar.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas','taller'])
 def actualizarPedidoTaller(request, pk):
   pedido = Pedido.objects.get(id=pk)
   form = PedidoFormTaller(instance=pedido)
@@ -161,10 +165,13 @@ def actualizarPedidoTaller(request, pk):
   context_taller= {'form': form, 'pk': pk}
   return render(request, 'pedidos/pedido_taller_form.html', context_taller)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'ventas','taller'])
 def pedidosTaller(request):
   return render(request, "pedidos/pedidos_taller.html", context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'gerencia'])
 def inicioGerencia(request):
   pedidos=Pedido.objects.all()
   turnos=Turno.objects.all()

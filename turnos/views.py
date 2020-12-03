@@ -5,8 +5,12 @@ from pacientes.models import *
 from pacientes.views import *
 from pacientes.forms import PacienteForm, TurnoForm
 from .filters import FiltroMedico
-# from django.forms import modelformset_factory
-# from .forms import ProductoForm, PedidoForm
+
+from accounts.decorators import unauthenticated_user
+from accounts.decorators import allowed_users
+from accounts.decorators import admin_only
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 turnos = Turno.objects.all()
@@ -14,9 +18,13 @@ medicos = Medico.objects.all()
 pacientes = Paciente.objects.all()
 context = {'turnos': turnos, 'medicos': medicos, 'pacientes': pacientes}
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def turnos(request):
   return render(request, "turnos/turnos.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def nuevoTurno(request):
   form = TurnoForm()
   if request.method == "POST":
@@ -27,6 +35,8 @@ def nuevoTurno(request):
   context = { 'form': form }
   return render(request, "turnos/nuevo_turno.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def actualizarTurno(request, pk):
   turno = Turno.objects.get(id=pk)
   form = TurnoForm(instance=turno)
@@ -40,6 +50,8 @@ def actualizarTurno(request, pk):
   context= {'form': form}
   return render(request, 'turnos/nuevo_turno.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def borrarTurno(request, pk):
   turno = Turno.objects.get(id=pk)
   if request.method == "POST":
@@ -48,27 +60,17 @@ def borrarTurno(request, pk):
   context = {'item': turno}
   return render(request, 'turnos/borrar.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed', 'taller', 'ventas', 'gerencia'])
 def medicos(request):
   return render(request, "turnos/medicos.html", context)
 
-# def parametro_es_valido(param):
-#   return param != '' and param is not None
-# def busqueda(request, medico_id):
-#   turnos = Turno.objects.all()
-#   filtro_medico = FiltroMedico()
-#   medico = Medico.objects.get(pk=medico_id)
-#   pacientes = Paciente.objects.all()
-#   context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes, 'filtro_medico': filtro_medico}
-#   return render(request, "turnos/medico.html", context_medico)
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def medico(request, medico_id):
   medico = Medico.objects.get(pk=medico_id)
   turnos = Turno.objects.filter(médico__pk=medico_id)
   pacientes = Paciente.objects.all()
-  # filtro_por_dia = request.GET.get('filtro_por_dia')
-
-  # if parametro_es_valido(filtro_por_dia):
-  #   turnos = turnos.filter(turno_dia=filtro_por_dia)
   filtro_medico = FiltroMedico(request.GET, queryset=turnos)
   turnos = filtro_medico.qs
 

@@ -5,15 +5,24 @@ from turnos.models import *
 from pedidos.models import *
 from .forms import PacienteForm, TurnoForm
 
+from accounts.decorators import unauthenticated_user
+from accounts.decorators import allowed_users
+from accounts.decorators import admin_only
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 pacientes = Paciente.objects.all()
 pedidos = Pedido.objects.all()  
 context = {'pacientes': pacientes, 'pedidos': pedidos}
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def index(request):  
   return render(request, "pacientes/index.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed'])
 def paciente(request, paciente_id): 
   paciente = Paciente.objects.get(id=paciente_id)
   pedido = paciente.pedido_set.all()
@@ -23,6 +32,8 @@ def paciente(request, paciente_id):
   return render(request, "pacientes/paciente.html", context_paciente)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed', 'ventas', 'taller', 'gerencia'])
 def panel_paciente(request, pk):
   paciente = Paciente.objects.get(pk=pk)  
   pedido = paciente.pedido_set.all()
@@ -30,6 +41,8 @@ def panel_paciente(request, pk):
   context_paciente = { 'paciente': paciente, 'pedido': pedido, 'pedidos_paciente': pedidos_paciente }
   return render(request, "pacientes/panel_paciente.html", context_paciente)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def nuevoPaciente(request):
   form = PacienteForm()
   if request.method == "POST":
@@ -40,6 +53,8 @@ def nuevoPaciente(request):
   context = { 'form': form }
   return render(request, "pacientes/nuevo_paciente.html", context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def actualizarPaciente(request, pk):
   paciente = Paciente.objects.get(id=pk)
   form = PacienteForm(instance=paciente)
@@ -53,6 +68,8 @@ def actualizarPaciente(request, pk):
   context= {'form': form}
   return render(request, 'pacientes/nuevo_paciente.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria'])
 def borrarPaciente(request, pk):
   paciente = Paciente.objects.get(id=pk)
   if request.method == "POST":
@@ -61,6 +78,8 @@ def borrarPaciente(request, pk):
   context = {'item': paciente}
   return render(request, 'pacientes/borrar.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'secretaria', 'profmed'])
 def paciente_medico(request, pk): 
   paciente = Paciente.objects.get(id=pk)
   turnos_paciente = paciente.turno_set.all().count()
