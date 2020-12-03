@@ -4,31 +4,31 @@
 {% block body %}
   
   <h1> Profesional méd. {{ medico.nombre }} </h1>
-  <h3> Especialidad: {{ medico.especialidad }}</h3>
+  <h3 style="margin-left: 25px;"> Especialidad: {{ medico.especialidad }}</h3>
   
-  <a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin-left: 15px; margin-bottom: 15px;" href="#" onclick="getValue(); return false;">Filtrar pacientes</a>
+  
 
-  <form action="" method="POST">
+  {% comment %} <form action="" method="POST">
     {% csrf_token %}
-    <div class="turnos_checkbox">
-    <input type="checkbox" class="checks" id="día" name="día" value="día">Por día
-    <input type="checkbox" class="checks" id="mes" name="mes" value="año">Por mes
-    <input type="checkbox" class="checks" id="año" name="año" value="año">Por año
+    <div class="turnos_checkbox" style="margin: 0 0 35px 25px;">
+    
+    Día:<input type="number" name="día" placeholder="Del 1 al 31">
+    Mes:<input type="number" name="día" placeholder="Del 1 al 12">
+    Año:<input type="number" name="día" placeholder="4 dígitos para el año">
+    
+    <input type="submit" class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" value="Filtrar pacientes">
     </div>
+  </form> {% endcomment %}
+
+  <form action="" method="GET">
+    {% csrf_token %}
+    {{ filtro_medico }}
+    
+    <input type="submit" class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" value="Filtrar pacientes">
+    
   </form>
 
-  <script>
-    let getValue =() => {
-      let checks = document.getElementsbyClassName('checks');
-      let choice = '';
-
-      for (i =0; i<3; i++) {
-        if (checks[i].checked === true) {
-          if 
-          }
-      }
-    }
-  </script>
+  
 <table class="table table-hover table-dark">
   <thead>
     <tr>
