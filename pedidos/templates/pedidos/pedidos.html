@@ -26,7 +26,7 @@
           {% comment %} <td>{{ total }}</td> {% endcomment %}
           <td>{{ pedido.fecha_creación }}</td>
           <td>{{ pedido.estado }}</td>
-          <td>{{ pedido.estado }}</td>
+          <td><a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:pedido_completo' pedido.pk %}">Ver pedido</a></td>
           </tr>
         {% endfor %}
        

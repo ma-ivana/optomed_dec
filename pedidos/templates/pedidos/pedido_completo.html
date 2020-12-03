@@ -13,6 +13,8 @@
       <th scope="col">Total art.</th>
       <th scope="col">Fecha de creación</th>
       <th scope="col">Estado</th>
+      <th scope="col">Pago</th>
+      <th scope="col">Vendedor</th>
     </tr>
   </thead>
   <tbody>
@@ -24,8 +26,10 @@
           <td>{{ item.producto }}</td>
           <td>{{ item.producto.precio }}</td>
           <td>{% widthratio item.cantidad 1 item.producto.precio %}</td>
-          <td>{{ item.pedido.fecha_creación }}</td>
-          <td>{{ item.pedido.estado }}</td>
+          <td>{{ item.fecha_creación }}</td>
+          <td>{{ item.estado }}</td>
+          <td>{{ item.pago }}</td>
+          <td>{{ item.vendedor }}</td>
           </tr>          
         {% endfor %}
       <tr>

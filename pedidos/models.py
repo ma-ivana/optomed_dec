@@ -61,7 +61,7 @@ class Pedido(models.Model):
             )
   paciente = models.ForeignKey('pacientes.Paciente', null=True, on_delete=models.CASCADE)
   fecha_creación =  models.DateTimeField(auto_now_add=True, null=True)
-  precio_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=20)
+  # precio_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=20)
   estado = models.CharField(max_length=20, null=True, choices=ESTADO)
   producto = models.ForeignKey(Producto, null=True, on_delete=models.CASCADE)
   cantidad = models.PositiveIntegerField(default=1)

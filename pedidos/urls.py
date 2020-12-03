@@ -19,4 +19,5 @@ urlpatterns = [
     path("borrar_pedido/<int:pk>", views.borrarPedido, name="borrar_pedido"),
     path("pedidos_taller", views.pedidosTaller, name="pedidos_taller"),
     path("pedido_taller_form/<int:pk>", views.actualizarPedidoTaller, name="pedido_taller_form"),
+    path("inicio_gerencia/", views.inicioGerencia, name="inicio_gerencia"),
 ]

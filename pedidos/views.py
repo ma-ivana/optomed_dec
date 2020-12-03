@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from pacientes.models import *
+from turnos.models import *
 from pacientes.views import *
 from django.forms import modelformset_factory
 from .forms import ProductoForm, PedidoForm, PedidoFormTaller
 from .filters import FiltroPedidos
+from turnos.filters import FiltroMedico
 
 # Create your views here.
 pedidos = Pedido.objects.all()
@@ -163,3 +165,12 @@ def pedidosTaller(request):
   return render(request, "pedidos/pedidos_taller.html", context)
 
 
+def inicioGerencia(request):
+  pedidos=Pedido.objects.all()
+  turnos=Turno.objects.all()
+  filtro_pedidos = FiltroPedidos(request.GET, queryset=pedidos)
+  filtro_turnos = FiltroMedico(request.GET, queryset=turnos)
+  pedidos = filtro_pedidos.qs
+  turnos = filtro_turnos.qs
+  context = {'pedidos': pedidos, 'productos': productos, 'tags': tags, 'pacientes': pacientes, 'total_pedidos': total_pedidos, 'finalizados': finalizados, 'pendientes': pendientes, 'ultimos_cinco': ultimos_cinco, 'filtro_pedidos': filtro_pedidos, 'filtro_turnos': filtro_turnos, 'turnos': turnos}
+  return render(request, 'pedidos/inicio_gerencia.html', context)
