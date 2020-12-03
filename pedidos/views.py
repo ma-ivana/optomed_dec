@@ -4,7 +4,8 @@ from .models import *
 from pacientes.models import *
 from pacientes.views import *
 from django.forms import modelformset_factory
-from .forms import ProductoForm, PedidoForm
+from .forms import ProductoForm, PedidoForm, PedidoFormTaller
+from .filters import FiltroPedidos
 
 # Create your views here.
 pedidos = Pedido.objects.all()
@@ -35,22 +36,38 @@ def tags(request):
 
 def pedido_completo(request, pedido_id):
   unPedido = Pedido.objects.get(pk=pedido_id)
-  pedido_seleccionado = Pedido.objects.filter(pedido=unPedido)
+  pedido_seleccionado = Pedido.objects.filter(id=unPedido.pk)
   subtotal = 0
   total = 0
   for item in pedido_seleccionado:
     subtotal = item.producto.precio * item.cantidad
     total = total + subtotal
   
-  contexto_pedido = {"unPedido": unPedido, "pedido_seleccionado": pedido_seleccionado, "total": total}
+  contexto_pedido = {"unPedido": unPedido, "pedido_seleccionado": pedido_seleccionado, 'id': pedido_id, "total": total}
   
   return render(request, "pedidos/pedido_completo.html", contexto_pedido)
 
 def crearPedido(request):
   context_crearPedido = {}
   return render(request, 'pedidos/formulario_pedido.html', context_crearPedido)
+def nuevoProducto(request):
+  form = ProductoForm()
+  if request.method == 'POST':
+    # print('Printing POST:', request.POST)
+    form = ProductoForm(request.POST)
+    if form.is_valid():
+      form.save()
+      # form.save_m2m()
+      return redirect(productos)
+
+  context_pedido = {'form': form}
+  return render(request, 'pedidos/nuevo_producto.html', context_pedido)
 
 def inicio(request):
+  pedidos=Pedido.objects.all()
+  filtro_pedidos = FiltroPedidos(request.GET, queryset=pedidos)
+  pedidos = filtro_pedidos.qs
+  context = {'pedidos': pedidos, 'productos': productos, 'tags': tags, 'pacientes': pacientes, 'total_pedidos': total_pedidos, 'finalizados': finalizados, 'pendientes': pendientes, 'ultimos_cinco': ultimos_cinco, 'filtro_pedidos': filtro_pedidos}
   return render(request, 'pedidos/inicio.html', context)
 
 def estado(request):
@@ -91,22 +108,11 @@ def hacerPedido(request, pk):
     form = PedidoForm(request.POST)
     if form.is_valid():
       form.save()
-      return redirect('pacientes:panel_paciente', pk=pk)
+      return redirect('pedidos:inicio')
   context_pedido = {'form': form, 'pk': pk }
   return render(request, 'pedidos/hacer_pedido.html', context_pedido)
 
-def nuevoProducto(request):
-  form = ProductoForm()
-  if request.method == 'POST':
-    # print('Printing POST:', request.POST)
-    form = ProductoForm(request.POST)
-    if form.is_valid():
-      form.save()
-      # form.save_m2m()
-      return redirect(productos)
 
-  context_pedido = {'form': form}
-  return render(request, 'pedidos/nuevo_producto.html', context_pedido)
 
 def vendedores(request):
   return render(request, "pedidos/vendedores.html", context)
@@ -128,7 +134,7 @@ def actualizarPedido(request, pk):
     if form.is_valid():
       form.save()
       # context_paciente = {'paciente_id': paciente_id}
-      return redirect('pacientes:panel_paciente', pk=paciente_id)
+      return redirect('pedidos:inicio')
   context= {'form': form}
   return render(request, 'pedidos/hacer_pedido.html', context)
 
@@ -137,6 +143,23 @@ def borrarPedido(request, pk):
   paciente_id = pedido.paciente.pk
   if request.method == "POST":
     pedido.delete()
-    return redirect('pacientes:panel_paciente', pk=paciente_id)
+    return redirect('pedidos:inicio')
   context = {'item': pedido}
   return render(request, 'pedidos/borrar.html', context)
+
+def actualizarPedidoTaller(request, pk):
+  pedido = Pedido.objects.get(id=pk)
+  form = PedidoFormTaller(instance=pedido)
+   
+  if request.method == 'POST':
+    form = PedidoFormTaller(request.POST, instance=pedido)
+    if form.is_valid():
+      form.save()
+      return redirect('pedidos:pedidos_taller')
+  context_taller= {'form': form, 'pk': pk}
+  return render(request, 'pedidos/pedido_taller_form.html', context_taller)
+
+def pedidosTaller(request):
+  return render(request, "pedidos/pedidos_taller.html", context)
+
+

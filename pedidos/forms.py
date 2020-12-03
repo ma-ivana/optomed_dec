@@ -1,4 +1,5 @@
-from django.forms import ModelForm, ModelChoiceField, DecimalField, inlineformset_factory
+from django.forms import ModelForm, ModelChoiceField, DecimalField, inlineformset_factory, CharField
+from django import forms
 from .models import Pedido, Producto
 
 # class PedidoProductoForm(ModelForm):
@@ -49,4 +50,9 @@ class PedidoForm(ModelForm):
   class Meta:
     model = Pedido
     fields = ['paciente', 'producto', 'cantidad', 'estado']
+
+class PedidoFormTaller(ModelForm):
+  class Meta:
+    model = Pedido  
+    fields = ['estado']
 

@@ -1,0 +1,11 @@
+{% extends 'pedidos/layout.html' %}
+{% load static %}
+
+{% block body %}
+  <form action="" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <input class="btn btn-sm btn-info" style="background-color: #39b9b9; margin-left: 15px; margin-bottom: 15px;" type="submit" name="Enviar" value="Marcar finalizado">
+</form>
+
+{% endblock body %}

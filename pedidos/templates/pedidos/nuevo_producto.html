@@ -3,12 +3,13 @@
 
 {% block body %}
 
-<div class="nuevo_producto_form">
+<div class="nuevo_producto_form" style="margin: 35px;
+  padding-left: 35px;">
 <form action="" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
   <div style="margin-left: 15px;">
-  <input class="btn btn-sm btn-info" type="submit" name="Enviar" value="Enviar">
+  <input class="btn btn-sm btn-info" style="margin-left: 280px;" type="submit" name="Enviar" value="Enviar">
   </div>
 </form>
 </div>

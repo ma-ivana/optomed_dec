@@ -4,6 +4,8 @@
   
   <h1> Pedidos </h1>
 
+<a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:inicio' %}">Volver a inicio</a>
+
 <table class="table table-hover table-dark">
   <thead>
     <tr>
@@ -12,6 +14,7 @@
       {% comment %} <th scope="col">Total</th> {% endcomment %}
       <th scope="col">Fecha de creación</th>
       <th scope="col">Estado</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +25,7 @@
           <td>{{ pedido.paciente }}</td>
           {% comment %} <td>{{ total }}</td> {% endcomment %}
           <td>{{ pedido.fecha_creación }}</td>
+          <td>{{ pedido.estado }}</td>
           <td>{{ pedido.estado }}</td>
           </tr>
         {% endfor %}

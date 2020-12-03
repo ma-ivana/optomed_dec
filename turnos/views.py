@@ -53,13 +53,13 @@ def medicos(request):
 
 # def parametro_es_valido(param):
 #   return param != '' and param is not None
-def busqueda(request, medico_id):
-  turnos = Turno.objects.all()
-  filtro_medico = FiltroMedico()
-  medico = Medico.objects.get(pk=medico_id)
-  pacientes = Paciente.objects.all()
-  context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes, 'filtro_medico': filtro_medico}
-  return render(request, "turnos/medico.html", context_medico)
+# def busqueda(request, medico_id):
+#   turnos = Turno.objects.all()
+#   filtro_medico = FiltroMedico()
+#   medico = Medico.objects.get(pk=medico_id)
+#   pacientes = Paciente.objects.all()
+#   context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes, 'filtro_medico': filtro_medico}
+#   return render(request, "turnos/medico.html", context_medico)
 
 def medico(request, medico_id):
   medico = Medico.objects.get(pk=medico_id)
@@ -69,9 +69,10 @@ def medico(request, medico_id):
 
   # if parametro_es_valido(filtro_por_dia):
   #   turnos = turnos.filter(turno_dia=filtro_por_dia)
+  filtro_medico = FiltroMedico(request.GET, queryset=turnos)
+  turnos = filtro_medico.qs
 
-
-  context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes}
+  context_medico = {'turnos': turnos, 'medico': medico, 'pacientes': pacientes, 'filtro_medico': filtro_medico}
   return render(request, "turnos/medico.html", context_medico)
 
 

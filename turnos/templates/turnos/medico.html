@@ -22,7 +22,11 @@
 
   <form action="" method="GET">
     {% csrf_token %}
-    {{ filtro_medico }}
+    <p>Filtrar turnos por paciente, día, mes o año del turno</p>
+    Paciente: {{ filtro_medico.form.paciente }}
+    Turno-día: {{ filtro_medico.form.dia }}
+    Turno-mes: {{ filtro_medico.form.mes }}
+    Turno-año: {{ filtro_medico.form.año }}
     
     <input type="submit" class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" value="Filtrar pacientes">
     

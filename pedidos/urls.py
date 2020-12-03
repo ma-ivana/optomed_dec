@@ -17,4 +17,6 @@ urlpatterns = [
     path("vendedor/<int:pk>", views.vendedor, name="vendedor"),
     path("actualizar_pedido/<int:pk>", views.actualizarPedido, name="actualizar_pedido"),
     path("borrar_pedido/<int:pk>", views.borrarPedido, name="borrar_pedido"),
+    path("pedidos_taller", views.pedidosTaller, name="pedidos_taller"),
+    path("pedido_taller_form/<int:pk>", views.actualizarPedidoTaller, name="pedido_taller_form"),
 ]

@@ -5,23 +5,24 @@
   <h1>Panel</h1>
 
 {% include 'pedidos/estado.html' %}
+
+
   <div class="contenedor_panel">
   <div class="col md-4">
     <h4>PACIENTES:</h4>
     <hr>
-    <div class="card card-body">
-      <a class="btn btn-primary btn-sm btn-block" href="">Nuevo paciente</a>
+
       <table class="table table-sm">
         <tr class="header_inicio">
           <th>Paciente</th>
           <th>Pedidos</th>
-          <th>Turnos</th>
+          <th></th> 
         </tr>
         <tr>
          
           {% for paciente in pacientes %}
             <td>
-            {{ paciente.nombre }}
+            {{ paciente.nombre }} 
             </td>
             <td> 
               {% with total=paciente.pedido_set.all.count %}
@@ -29,18 +30,47 @@
               {% endwith %}
             </td>
             <td>
-              falta
-            </td>
+              <a class="btn btn-primary btn-sm" href="{% url 'pedidos:hacer_pedido' paciente.pk %}">Nuevo pedido</a>
+            </td> 
           </tr>
           {% endfor %}
         </tr>
       </table>
     </div>
   </div>
+  </div>
+<hr>
+
+<div class="form_container">
+<form action="" method="GET">
+    {% csrf_token %}
+    <h4>Filtrar pedidos:</h4>
+    <div class="nuevo_item_form">
+      <ul class="nuevo_item" style="color: black;">
+        <li>Paciente: {{ filtro_pedidos.form.paciente }}</li>
+        <li>Día creación: {{ filtro_pedidos.form.dia }}</li>
+        <li>Mes creación: {{ filtro_pedidos.form.mes }}</li>
+        <li>Año creación: {{ filtro_pedidos.form.año }}</li>
+        <li>Estado: {{ filtro_pedidos.form.estado }}</li>
+        <li>Producto: {{ filtro_pedidos.form.producto }}</li>
+        <li>Vendedor: {{ filtro_pedidos.form.vendedor }}</li>
+        <li>Forma de pago: {{ filtro_pedidos.form.pago }}</li>
+      </ul>
+    
+    <input type="submit" class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" value="Filtrar pedidos">
+  </div>
+</form>
+</div>
+
+<a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:productos' %}">Ver productos</a>
+<a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:nuevo_producto' %}">Nuevo producto</a>
+
+   </div>
 
 <div class="col md-8">
-    <h4>ÚLTIMOS 5 PEDIDOS:</h4>
+    <h4>PEDIDOS:</h4>
     <hr>
+</div>
     <div class="card card-body">
       
       <table class="table table-sm">
@@ -48,16 +78,18 @@
           <th>Producto</th>
           <th>Fecha pedido</th>
           <th>Estado</th>
+          <th>Ver</th>
           <th>Actualizar</th>
           <th>Eliminar</th>
         </tr>
-        {% for pedido in ultimos_cinco %}
+        {% for pedido in pedidos %}
           <tr>
             <td>{{ pedido.producto }}</td>
             <td>{{ pedido.fecha_creación.date }}</td>
             <td>{{ pedido.estado }}</td>
-            <td> <a href="">Actualizar</a></td>
-            <td> <a href="">Eliminar</a></td>
+            <td><a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:pedido_completo' pedido.pk %}">Ver pedido</a></td>
+            <td> <a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:actualizar_pedido' pedido.pk %}">Actualizar</a></td>
+            <td> <a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin: 15px 0 30px 25px;" href="{% url 'pedidos:borrar_pedido' pedido.pk %}">Eliminar</a></td>
         </tr>
         {% endfor %}
       </table>
