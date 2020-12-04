@@ -25,7 +25,7 @@ def registerPage(request):
             group = Group.objects.get(name='secretaria')
             user.groups.add(group)
 
-            messages.success(request, 'Account was creater for ' + username)
+            messages.success(request, 'Account was created for ' + username)
             return redirect('accounts:login')
 
     context = {'form': form}

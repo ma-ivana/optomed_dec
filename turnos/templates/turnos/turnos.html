@@ -1,7 +1,7 @@
-{% extends "turnos/layout.html" %}
+{% extends "accounts/layout_main.html" %}
 
 {% block body %}
-  
+  {% include "accounts/navbarsecretaria.html" %}
   <h1> Turnos </h1>
 
 <a class="btn btn-primary btn-sm" style="background-color: #39b9b9; margin-left: 15px; margin-bottom: 15px;" href="{% url 'turnos:nuevo_turno' %}">Nuevo turno</a>
@@ -10,7 +10,10 @@
   <thead>
     <tr>
       <th scope="col">Turno</th>
+      <th scope="col">Hora</th>
       <th scope="col">Paciente</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
       {% comment %} <th scope="col">Total</th> {% endcomment %}
       <th scope="col">Médico</th>
       <th scope="col">Estado</th>
@@ -20,13 +23,12 @@
     
         {% for turno in turnos %}
           <tr>
-          <th scope="row">{{ turno.turno_dia }}{{ turno.turno_hora }}
-        <a href="{% url 'turnos:actualizar_turno' turno.pk %}" class="btn btn-primary" style="background-color: #4fd1c3; height: 35px; width: 55px; font-size: 18px; text-align: center; padding: 0; margin-left: 25px;">Act.</a> 
-<a href="{% url 'turnos:borrar_turno' turno.pk %}" class="btn btn-primary" style="background-color: #f788b6; height: 35px; width: 55px; font-size: 18px; text-align: center; padding: 0; margin-left: 15px;">Borr.</a>
-</td>
-</th>
+          <td scope="row">{{ turno.turno_dia }}</td>
+          <td>{{ turno.turno_hora }}</td>
           <td>{{ turno.paciente }}</td>
-          {% comment %} <td>{{ total }}</td> {% endcomment %}
+          <td><a href="{% url 'turnos:actualizar_turno' turno.pk %}" {% include 'turnos/edit.svg' %}</a> </td>
+          
+          <td><a href="{% url 'turnos:borrar_turno' turno.pk %}" {% include 'turnos/delete.svg' %}</a> </td>
           <td>{{ turno.médico }}</td>
           <td>{{ turno.estado_turno }}</td>
           </tr>
