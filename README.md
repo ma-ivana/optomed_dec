@@ -29,5 +29,4 @@ e introducir la URL :  turnos/medico/1
 -- usuario: ventas  
 -- pass: ventastest1234  
 
-__Link al video en YouTube:__  
-https://youtu.be/0bZPZb08C-U
+
